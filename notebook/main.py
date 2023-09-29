@@ -26,4 +26,3 @@ os.makedirs(output_directory, exist_ok=True)
 
 # Sauvegarde des données nettoyées dans le dossier "data/cleaned"
 data.to_csv(os.path.join(output_directory, 'cleaned.csv'), index=False)
-
