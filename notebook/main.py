@@ -11,16 +11,11 @@ try:
     # Récupération du jeu de données depuis un chemin local
     data = pd.read_csv(DATA_PATH)
 
-    # Validation des données d'entrée : vérifier la structure du fichier CSV
-    expected_columns = ['titre', 'realisateur', 'nombre_de_film', 'Ville']
-    if not all(col in data.columns for col in expected_columns):
-        raise ValueError("Le fichier de données n'a pas la structure attendue.")
-
     # Nettoyer les données : suppression des lignes avec des valeurs manquantes
     data = data.dropna()
 
     # Notre analyse ne concernera que le nombre de films réalisés par un auteur dans une ville donnée, donc nous allons sélectionner que 4 colonnes de notre donnée
-    data = data[expected_columns]
+    data = data[['titre', 'realisateur', 'nombre_de_film', 'Ville']]
 
     # Faire du feature engineering : nous allons créer une nouvelle colonne "titre_realisateur"
     data['titre_realisateur'] = data['titre'] + '_' + data['realisateur']  # Utilisation de '+' pour concaténer les valeurs
@@ -37,9 +32,6 @@ try:
 
 except FileNotFoundError as e:
     print(f"Erreur: Le fichier de données '{DATA_PATH}' n'a pas été trouvé. Veuillez vérifier le chemin d'accès.")
-    # Gérer l'erreur ici ou ajouter une sortie propre
-except ValueError as e:
-    print(f"Erreur: {str(e)}")
     # Gérer l'erreur ici ou ajouter une sortie propre
 except Exception as e:
     print(f"Une erreur inattendue s'est produite: {str(e)}")
